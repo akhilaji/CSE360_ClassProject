@@ -22,15 +22,15 @@ public class GradeCalculations {
 		scoresList.add(95.4);
 		scoresList.add(52.7);
 		scoresList.add(87.6);
-		scoresList.add(87.6);
+		scoresList.add(21.55);
 		//create scanner to read keyboard inputs
 		
 		
-		System.out.println(getHigh(scoresList));
-		System.out.println(getLow(scoresList));
-		System.out.println(median(scoresList));
-		System.out.println(mean(scoresList));
-		System.out.println(mode(scoresList));
+		System.out.println("Highest Value: "+getHigh(scoresList));
+		System.out.println("Lowest Value: "+getLow(scoresList));
+		System.out.println("Median: "+median(scoresList));
+		System.out.println("Mean: "+mean(scoresList));
+		System.out.println("Mode: "+mode(scoresList));
 
 	}
 	
@@ -71,7 +71,7 @@ public class GradeCalculations {
 		if (scoresList.size() > 1) {
 			//if even || odd 
 			if (scoresList.size() % 2 == 0)
-			    median = ((double)scoresList.get(scoresList.size()/2) + (double)scoresList.get(scoresList.size()/2 - 1)/2);
+			    median = ( ((double)scoresList.get(scoresList.size()/2) + (double)scoresList.get(scoresList.size()/2 - 1)) /2);
 			else
 			    median = (double) scoresList.get(scoresList.size()/2);
 		}else {
