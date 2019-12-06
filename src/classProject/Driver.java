@@ -2,6 +2,8 @@ package classProject;
 
 import java.awt.EventQueue;
 
+import javax.swing.JLabel;
+
 public class Driver {
 
 	public static void main(String[] args) {
@@ -26,5 +28,8 @@ public class Driver {
 		
 		//this is how you call the file 
 		frame.getWorkingFile();
+		
+		//test and example of how to change the c values..
+		frame.getcMean().setText("test");
 	}
 }
