@@ -184,7 +184,6 @@ public class GCFrame extends JFrame {
 												btnBoundary.addMouseListener(new MouseAdapter() {
 													@Override
 													public void mouseClicked(MouseEvent e) {
-														System.out.println("zzz");
 														updateBoundaries(textField.getText(), textField_1.getText());
 													}
 												});
@@ -462,13 +461,6 @@ public class GCFrame extends JFrame {
 	private void updateBoundaries(String low, String high) {
 		highB = Integer.parseInt(high);
 		lowB = Integer.parseInt(low);
-		
-		try {
-			gCalcs.tester();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
 		gCalcs.setHigh(getHighB());
 		gCalcs.setLow(getLowB());

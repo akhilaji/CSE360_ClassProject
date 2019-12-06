@@ -19,7 +19,6 @@ public class GradeCalculations {
 	}
 
 	public void setHigh(int high) {
-		System.out.println(high);
 		this.high = high;
 	}
 
