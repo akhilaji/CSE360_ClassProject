@@ -8,6 +8,7 @@ public class GradeCalculations {
 	
 	static double high;
 	static double low;
+	static ArrayList<String> errorMessages  = new ArrayList<String>();
 	
 	public GradeCalculations() {
 		// TODO Auto-generated constructor stub
@@ -20,6 +21,8 @@ public class GradeCalculations {
 		ArrayList<Double> scoresList = new ArrayList<Double>();
 		scoresList.add(78.6);
 		scoresList.add(88.4);
+		scoresList.add(65.2);
+		scoresList.add(65.2);
 		scoresList.add(65.2);
 		scoresList.add(91.5);
 		scoresList.add(95.4);
@@ -83,7 +86,8 @@ public class GradeCalculations {
 			else
 			    median = (double) scoresList.get(scoresList.size()/2);
 		}else {
-			System.out.println("There is not enough data to calculate a median");
+			//System.out.println("There is not enough data to calculate a median");
+			addNewError("There is not enough data to calculate a median");
 		}
 
 		return median;
@@ -92,33 +96,46 @@ public class GradeCalculations {
 	static double mean(ArrayList<Double> scoresList) {
 		double mean = 0;
 		if(!scoresList.isEmpty()) {
+			if(scoresList.size() <=1) {
+				addNewError("There are not enough scores to calculate mean");
+			}
 			for(int i = 0; i < scoresList.size(); i++ ) {
 				mean += scoresList.get(i);
 			}
 			//System.out.println("Printing list size " + scoresList.size());
 			//System.out.println("Printing mean  " + mean);
 			mean = mean/scoresList.size();
+		}else {
+			addNewError("There are no scores, please add scores and continue");
 		}
 		return mean;
 	}
 	
 	static double mode(ArrayList<Double> scoresList) {
-		double mode = 0;
-		int count = -1; 
-		int tempCount = 0;
-		Collections.sort(scoresList);
-		
-		for(int i = 0; i < scoresList.size() - 1; i++) {
-			if(scoresList.get(i) == scoresList.get(i+1)) {
-				tempCount++;
-			}
-			if(tempCount > count) {
-				mode = scoresList.get(i);
-				count  = tempCount;
-			}
+		double mode = scoresList.get(0);
+		double max = 0;
+		for(int i = 0; i < scoresList.size(); i++) {
+			double value = scoresList.get(i);
+			int count = 0;
 			
+			for (int j =0; j < scoresList.size(); j++) {
+				if(scoresList.get(j) == value) {
+					count ++;
+				}
+				if(count > max) {
+					mode = value;
+					max = count;
+				}
+			}
 		}
-		return mode;
+		
+		if(max > 1) {
+			return mode;
+		}else {
+			addNewError("There is no mode for the given data");
+			return 0.0;
+		}
+		
 	}
 	
 	static void checkBoundaries(ArrayList<Double> scoresList) throws Exception {
@@ -126,7 +143,12 @@ public class GradeCalculations {
 		
 		for(int i = 0; i < length; i++){
 			double temp = scoresList.get(i);
+			//check to determine if there are violations of the boundaries
 			if(temp > high || temp < low){
+				addNewError("Data Element at index: " + i + " is out of bounds");
+				
+				//remove the violating data and recalculate values
+				
 				throw new Exception("Data Element at index: " + i + " is out of bounds");
 			}
 		}
@@ -139,6 +161,23 @@ public class GradeCalculations {
 	static void graphs(){
 		
 	}
+	
+	static void determineDistribution() {
+		int bucketSize =  (int) Math.floor(high/low); 
+	}
+	
+	
+	static void addNewError(String newMessage) {
+		errorMessages.add(newMessage);
+	}
+	
+	static void printArray() {
+		errorMessages.forEach(error -> {;
+			System.out.println(error);
+		});
+	}
+	
+	
 	
 	
 	

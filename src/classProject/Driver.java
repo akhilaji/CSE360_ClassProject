@@ -36,6 +36,7 @@ public class Driver {
 				//check file elemenents against boundaries
 				//run calculations
 				//write data back to mean/meadian/mode/element amount in GCFrame
+				
 		
 		//Handle Data to Table
 		
@@ -55,5 +56,12 @@ public class Driver {
 		
 		
 	}
+	
+	
+	static void printToFile() {
+		
+	}
+
+	
 	
 }
