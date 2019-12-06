@@ -43,7 +43,6 @@ public class GCFrame extends JFrame {
 	private String workingFile;
 	
 	
-	
 	public String getWorkingFile() {
 		return workingFile;
 	}

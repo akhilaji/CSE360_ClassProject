@@ -12,16 +12,17 @@ import javafx.scene.chart.XYChart;
 
 public class GraphClass {
 	
-	final static String zero = "0% - 9%";
-	final static String ten = "10% - 19%";
-	final static String twenty = "20% - 29%";
-	final static String thirty = "30% - 39%";
-	final static String forty = "40% - 49%";
-	final static String fifty = "50% - 59%";
-	final static String sixty = "60% - 69%";
-	final static String seventy = "70% - 79%";
-	final static String eighty = "80% - 89%";
-	final static String ninty = "90% - 100%";
+	//I shortened these to make them fit in the graph better.
+	final static String zero = "0%";
+	final static String ten = "10%";
+	final static String twenty = "20%";
+	final static String thirty = "30%";
+	final static String forty = "40%";
+	final static String fifty = "50%";
+	final static String sixty = "60%";
+	final static String seventy = "70%";
+	final static String eighty = "80%";
+	final static String ninty = "90%";
 	
 	public GraphClass(){}
 	
