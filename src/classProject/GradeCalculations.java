@@ -5,12 +5,15 @@ import java.util.Collections;
 import java.util.List;
 
 public class GradeCalculations {
-
+	
+	static double high;
+	static double low;
+	
 	public GradeCalculations() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
 		
 		//create array of grades
@@ -23,8 +26,13 @@ public class GradeCalculations {
 		scoresList.add(52.7);
 		scoresList.add(87.6);
 		scoresList.add(21.55);
+		//scoresList.add(121.55);
 		//create scanner to read keyboard inputs
 		
+		high = 100;
+		low = 0;
+		
+		checkBoundaries(scoresList);
 		
 		System.out.println("Highest Value: "+getHigh(scoresList));
 		System.out.println("Lowest Value: "+getLow(scoresList));
@@ -113,14 +121,24 @@ public class GradeCalculations {
 		return mode;
 	}
 	
-	static void checkBoundaries(ArrayList<Double> scoresList) {
+	static void checkBoundaries(ArrayList<Double> scoresList) throws Exception {
+		int length = scoresList.size();
 		
+		for(int i = 0; i < length; i++){
+			double temp = scoresList.get(i);
+			if(temp > high || temp < low){
+				throw new Exception("Data Element at index: " + i + " is out of bounds");
+			}
+		}
 	}
 	
 	static void sort(ArrayList<Double> scoresList) {
 		Collections.sort(scoresList);
 	}
 	
+	static void graphs(){
+		
+	}
 	
 	
 	
