@@ -1,8 +1,6 @@
 package classProject;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -16,23 +14,18 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 
-import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
-import javax.swing.SwingConstants;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.border.BevelBorder;
-import java.awt.GridLayout;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import java.awt.CardLayout;
 import net.miginfocom.swing.MigLayout;
-import java.awt.FlowLayout;
 import javax.swing.JTable;
 import javax.swing.border.MatteBorder;
+
+import javafx.embed.swing.JFXPanel;
+
+import javax.swing.border.EtchedBorder;
 
 public class GCFrame extends JFrame {
 	private JPanel contentPane;
@@ -41,21 +34,70 @@ public class GCFrame extends JFrame {
 	private JTextField textField_2;
 	private JTextField textField_3;
 	private JTable table;
+	private JTable gradeTable;
+	private JFXPanel distribution1;
+	private JLabel cEntries;
+	private JLabel cMean;
+	private JLabel cMedian;
+	private JLabel cMode;
+	private String workingFile;
+	
+	
+	
+	public String getWorkingFile() {
+		return workingFile;
+	}
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					GCFrame frame = new GCFrame();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+	public void setWorkingFile(String workingFile) {
+		this.workingFile = workingFile;
+	}
+
+	public JTable getGradeTable() {
+		return gradeTable;
+	}
+
+	public void setGradeTable(JTable gradeTable) {
+		this.gradeTable = gradeTable;
+	}
+
+	public JFXPanel getDistribution1() {
+		return distribution1;
+	}
+
+	public void setDistribution1(JFXPanel distribution1) {
+		this.distribution1 = distribution1;
+	}
+
+	public JLabel getcEntries() {
+		return cEntries;
+	}
+
+	public void setcEntries(JLabel cEntries) {
+		this.cEntries = cEntries;
+	}
+
+	public JLabel getcMean() {
+		return cMean;
+	}
+
+	public void setcMean(JLabel cMean) {
+		this.cMean = cMean;
+	}
+
+	public JLabel getcMedian() {
+		return cMedian;
+	}
+
+	public void setcMedian(JLabel cMedian) {
+		this.cMedian = cMedian;
+	}
+
+	public JLabel getcMode() {
+		return cMode;
+	}
+
+	public void setcMode(JLabel cMode) {
+		this.cMode = cMode;
 	}
 
 	/**
@@ -77,9 +119,11 @@ public class GCFrame extends JFrame {
 				String low;
 				
 				JPanel titlePanel = new JPanel();
+				titlePanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 				titlePanel.setLayout(new MigLayout("", "[774px]", "[23px][][][][]"));
 				
 				JPanel valuePanel = new JPanel();
+				valuePanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 				
 				JLabel lblLowBoundary = new JLabel("Low Boundary");
 								
@@ -113,118 +157,114 @@ public class GCFrame extends JFrame {
 												gl_valuePanel.setHorizontalGroup(
 													gl_valuePanel.createParallelGroup(Alignment.TRAILING)
 														.addGroup(gl_valuePanel.createSequentialGroup()
-															.addGap(88)
+															.addGap(212)
 															.addGroup(gl_valuePanel.createParallelGroup(Alignment.LEADING)
 																.addComponent(lblLowBoundary)
 																.addComponent(textField, GroupLayout.PREFERRED_SIZE, 68, GroupLayout.PREFERRED_SIZE)
-																.addComponent(lblHighBoundary)
-																.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE))
+																.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE)
+																.addComponent(lblHighBoundary))
+															.addGap(175)
 															.addGroup(gl_valuePanel.createParallelGroup(Alignment.LEADING)
+																.addGroup(gl_valuePanel.createSequentialGroup()
+																	.addComponent(lblAppendValue)
+																	.addContainerGap())
 																.addGroup(gl_valuePanel.createParallelGroup(Alignment.LEADING)
 																	.addGroup(gl_valuePanel.createSequentialGroup()
-																		.addGap(383)
 																		.addGroup(gl_valuePanel.createParallelGroup(Alignment.LEADING)
-																			.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-																			.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-																		.addContainerGap(137, Short.MAX_VALUE))
-																	.addGroup(Alignment.TRAILING, gl_valuePanel.createSequentialGroup()
-																		.addPreferredGap(ComponentPlacement.RELATED)
-																		.addComponent(lblDeleteValue, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE)
-																		.addGap(150)))
-																.addGroup(Alignment.TRAILING, gl_valuePanel.createSequentialGroup()
-																	.addPreferredGap(ComponentPlacement.RELATED)
-																	.addComponent(lblAppendValue)
-																	.addGap(145))))
+																			.addComponent(lblDeleteValue, GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
+																			.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+																		.addGap(223))
+																	.addGroup(gl_valuePanel.createSequentialGroup()
+																		.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+																		.addContainerGap()))))
 												);
 												gl_valuePanel.setVerticalGroup(
 													gl_valuePanel.createParallelGroup(Alignment.LEADING)
 														.addGroup(gl_valuePanel.createSequentialGroup()
-															.addGap(10)
+															.addContainerGap()
 															.addGroup(gl_valuePanel.createParallelGroup(Alignment.BASELINE)
 																.addComponent(lblLowBoundary)
-																.addComponent(lblDeleteValue, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-															.addGap(7)
+																.addComponent(lblDeleteValue, GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE))
+															.addPreferredGap(ComponentPlacement.RELATED)
 															.addGroup(gl_valuePanel.createParallelGroup(Alignment.BASELINE)
 																.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 																.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-															.addGap(21)
-															.addGroup(gl_valuePanel.createParallelGroup(Alignment.BASELINE)
-																.addComponent(lblHighBoundary)
-																.addComponent(lblAppendValue))
 															.addPreferredGap(ComponentPlacement.RELATED)
-															.addGroup(gl_valuePanel.createParallelGroup(Alignment.BASELINE)
-																.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-																.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-															.addGap(52))
+															.addGroup(gl_valuePanel.createParallelGroup(Alignment.TRAILING)
+																.addGroup(gl_valuePanel.createSequentialGroup()
+																	.addComponent(lblAppendValue)
+																	.addPreferredGap(ComponentPlacement.UNRELATED)
+																	.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+																.addGroup(gl_valuePanel.createSequentialGroup()
+																	.addComponent(lblHighBoundary)
+																	.addGap(10)
+																	.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+															.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 												);
 												valuePanel.setLayout(gl_valuePanel);
 				
 				JPanel analysisPanel = new JPanel();
+				analysisPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 				
 				JLabel lblAnalysisInformation = new JLabel("Analysis Information");
 				lblAnalysisInformation.setFont(new Font("Tahoma", Font.PLAIN, 18));
 				
-				JPanel panel = new JPanel();
+				JPanel distributionPanel = new JPanel();
+				distributionPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 				GroupLayout gl_contentPane = new GroupLayout(contentPane);
 				gl_contentPane.setHorizontalGroup(
-					gl_contentPane.createParallelGroup(Alignment.TRAILING)
-						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+					gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createSequentialGroup()
 							.addContainerGap()
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(panel, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 764, Short.MAX_VALUE)
-								.addComponent(valuePanel, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 764, Short.MAX_VALUE)
-								.addComponent(titlePanel, GroupLayout.PREFERRED_SIZE, 764, GroupLayout.PREFERRED_SIZE)
-								.addComponent(analysisPanel, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 764, Short.MAX_VALUE))
-							.addContainerGap())
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
+								.addComponent(distributionPanel, Alignment.LEADING, 0, 0, Short.MAX_VALUE)
+								.addComponent(analysisPanel, Alignment.LEADING, 0, 0, Short.MAX_VALUE)
+								.addComponent(valuePanel, Alignment.LEADING, 0, 0, Short.MAX_VALUE)
+								.addComponent(titlePanel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 741, Short.MAX_VALUE))
+							.addContainerGap(33, Short.MAX_VALUE))
 				);
 				gl_contentPane.setVerticalGroup(
 					gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(5)
-							.addComponent(titlePanel, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE)
+							.addComponent(titlePanel, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(valuePanel, GroupLayout.PREFERRED_SIZE, 121, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(analysisPanel, GroupLayout.PREFERRED_SIZE, 227, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(panel, GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
+							.addComponent(analysisPanel, GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(distributionPanel, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE)
 							.addContainerGap())
 				);
 				
-				JLabel lblDistributionGraphs = new JLabel("Distribution Graphs");
+				JLabel lblDistributionGraphs = new JLabel("Distribution Graph");
 				lblDistributionGraphs.setFont(new Font("Tahoma", Font.PLAIN, 18));
 				
-				JPanel distribution1 = new JPanel();
+				distribution1 = new JFXPanel();
 				distribution1.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
-				
-				JPanel distribution2 = new JPanel();
-				distribution2.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
-				GroupLayout gl_panel = new GroupLayout(panel);
-				gl_panel.setHorizontalGroup(
-					gl_panel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(306)
-							.addComponent(lblDistributionGraphs)
-							.addContainerGap(307, Short.MAX_VALUE))
-						.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
-							.addContainerGap(84, Short.MAX_VALUE)
-							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-								.addComponent(distribution2, GroupLayout.PREFERRED_SIZE, 619, GroupLayout.PREFERRED_SIZE)
-								.addComponent(distribution1, GroupLayout.PREFERRED_SIZE, 619, GroupLayout.PREFERRED_SIZE))
-							.addGap(61))
+				GroupLayout gl_distributionPanel = new GroupLayout(distributionPanel);
+				gl_distributionPanel.setHorizontalGroup(
+					gl_distributionPanel.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_distributionPanel.createSequentialGroup()
+							.addGroup(gl_distributionPanel.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_distributionPanel.createSequentialGroup()
+									.addGap(306)
+									.addComponent(lblDistributionGraphs))
+								.addGroup(gl_distributionPanel.createSequentialGroup()
+									.addGap(57)
+									.addComponent(distribution1, GroupLayout.PREFERRED_SIZE, 619, GroupLayout.PREFERRED_SIZE)))
+							.addContainerGap(61, Short.MAX_VALUE))
 				);
-				gl_panel.setVerticalGroup(
-					gl_panel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel.createSequentialGroup()
+				gl_distributionPanel.setVerticalGroup(
+					gl_distributionPanel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_distributionPanel.createSequentialGroup()
 							.addContainerGap()
 							.addComponent(lblDistributionGraphs)
-							.addGap(18)
-							.addComponent(distribution1, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(distribution2, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap(30, Short.MAX_VALUE))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(distribution1, GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
+							.addContainerGap())
 				);
-				panel.setLayout(gl_panel);
+				distributionPanel.setLayout(gl_distributionPanel);
 				
 				JLabel lblEntries = new JLabel("Entries:");
 				lblEntries.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -240,16 +280,16 @@ public class GCFrame extends JFrame {
 				JLabel lblMode = new JLabel("Mode:");
 				lblMode.setFont(new Font("Tahoma", Font.BOLD, 14));
 				
-				JLabel cEntries = new JLabel("value");
+				cEntries = new JLabel("value");
 				
-				JLabel cMean = new JLabel("value");
+				cMean = new JLabel("value");
 				
-				JLabel cMedian = new JLabel("value");
+				cMedian = new JLabel("value");
 				
-				JLabel cMode = new JLabel("value");
+				cMode = new JLabel("value");
 				
-				JPanel barGraphPanel = new JPanel();
-				barGraphPanel.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
+				gradeTable = new JTable();
+				gradeTable.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 				GroupLayout gl_analysisPanel = new GroupLayout(analysisPanel);
 				gl_analysisPanel.setHorizontalGroup(
 					gl_analysisPanel.createParallelGroup(Alignment.LEADING)
@@ -283,9 +323,9 @@ public class GCFrame extends JFrame {
 									.addComponent(lblAnalysisInformation)
 									.addGap(295))))
 						.addGroup(gl_analysisPanel.createSequentialGroup()
-							.addGap(78)
-							.addComponent(barGraphPanel, GroupLayout.PREFERRED_SIZE, 619, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap(78, Short.MAX_VALUE))
+							.addContainerGap()
+							.addComponent(gradeTable, GroupLayout.PREFERRED_SIZE, 713, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap(52, Short.MAX_VALUE))
 				);
 				gl_analysisPanel.setVerticalGroup(
 					gl_analysisPanel.createParallelGroup(Alignment.LEADING)
@@ -311,7 +351,7 @@ public class GCFrame extends JFrame {
 									.addPreferredGap(ComponentPlacement.RELATED)
 									.addComponent(cMedian)))
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(barGraphPanel, GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
+							.addComponent(gradeTable, GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
 							.addContainerGap())
 				);
 				analysisPanel.setLayout(gl_analysisPanel);
@@ -330,6 +370,7 @@ public class GCFrame extends JFrame {
 				btnLoadData.setBackground(Color.WHITE);
 				
 				JButton btnAppendData = new JButton("Append Data");
+				btnAppendData.setBackground(Color.WHITE);
 				btnAppendData.setFont(new Font("Tahoma", Font.BOLD, 12));
 				titlePanel.add(btnAppendData, "cell 0 4,alignx center,aligny center");
 				btnAppendData.setForeground(new Color(255, 140, 0));
@@ -348,7 +389,7 @@ public class GCFrame extends JFrame {
 				contentPane.setLayout(gl_contentPane);
 	}
 	
-	public String chooseFile() {
+	private void chooseFile() {
         final JFrame frame = new JFrame("Choose a file");
         
         final JFileChooser fc = new JFileChooser();
@@ -364,7 +405,7 @@ public class GCFrame extends JFrame {
             }
         }
         fileName = sb.toString();
-        System.out.println(fileName);
-        return fileName;
+        workingFile = fileName;
+        System.out.println(workingFile);
 	}
 }
