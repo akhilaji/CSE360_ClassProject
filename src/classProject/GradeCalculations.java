@@ -6,17 +6,38 @@ import java.util.List;
 
 public class GradeCalculations {
 	
-	static double high;
-	static double low;
-	static ArrayList<String> errorMessages  = new ArrayList<String>();
+	private int high;
+	private int low;
+	public ArrayList<String> errorMessages;
+	public ArrayList<Double> scoresList;
 	
-	public GradeCalculations() {
-		// TODO Auto-generated constructor stub
+	
+	
+	
+	public  double getHigh() {
+		return high;
 	}
 
-	public static void main(String[] args) throws Exception {
-		// TODO Auto-generated method stub
-		
+	public void setHigh(int high) {
+		System.out.println(high);
+		this.high = high;
+	}
+
+	public double getLow() {
+		return low;
+	}
+
+	public void setLow(int low) {
+		this.low = low;
+	}
+
+	public GradeCalculations() {
+		errorMessages  = new ArrayList<String>();
+		scoresList = new ArrayList<Double>();
+	}
+	
+	//this was everything in the main from this file
+	public void tester() throws Exception {
 		//create array of grades
 		ArrayList<Double> scoresList = new ArrayList<Double>();
 		scoresList.add(78.6);
@@ -32,24 +53,19 @@ public class GradeCalculations {
 		//scoresList.add(121.55);
 		//create scanner to read keyboard inputs
 		
-		high = 100;
-		low = 0;
+		//high = 100;
+		//low = 0;
 		
 		checkBoundaries(scoresList);
 		
-		System.out.println("Highest Value: "+getHigh(scoresList));
+		System.out.println("Highest Value: "+ getHigh(scoresList));
 		System.out.println("Lowest Value: "+getLow(scoresList));
 		System.out.println("Median: "+median(scoresList));
 		System.out.println("Mean: "+mean(scoresList));
 		System.out.println("Mode: "+mode(scoresList));
-
 	}
-	
-	void readFile() {
-	}
-	
 
-	static double getHigh(ArrayList<Double> scoresList) {
+	double getHigh(ArrayList<Double> scoresList) {
 		double max = 0;
 		
 		for(int i = 0; i < scoresList.size(); i++) {
@@ -63,7 +79,7 @@ public class GradeCalculations {
 		
 	}
 	
-	static double getLow(ArrayList<Double> scoresList) {
+	double getLow(ArrayList<Double> scoresList) {
 		double min = Double.MAX_VALUE;
 		for(int i = 0; i < scoresList.size(); i++) {
 			double currentVal = scoresList.get(i);
@@ -76,7 +92,7 @@ public class GradeCalculations {
 		return min;
 	}
 	
-	static double median(ArrayList<Double> scoresList) {
+	double median(ArrayList<Double> scoresList) {
 		double median = 0;
 		Collections.sort(scoresList);
 		if (scoresList.size() > 1) {
@@ -93,7 +109,7 @@ public class GradeCalculations {
 		return median;
 	}
 	
-	static double mean(ArrayList<Double> scoresList) {
+	double mean(ArrayList<Double> scoresList) {
 		double mean = 0;
 		if(!scoresList.isEmpty()) {
 			if(scoresList.size() <=1) {
@@ -111,7 +127,7 @@ public class GradeCalculations {
 		return mean;
 	}
 	
-	static double mode(ArrayList<Double> scoresList) {
+	double mode(ArrayList<Double> scoresList) {
 		double mode = scoresList.get(0);
 		double max = 0;
 		for(int i = 0; i < scoresList.size(); i++) {
@@ -138,7 +154,7 @@ public class GradeCalculations {
 		
 	}
 	
-	static void checkBoundaries(ArrayList<Double> scoresList) throws Exception {
+	void checkBoundaries(ArrayList<Double> scoresList) throws Exception {
 		int length = scoresList.size();
 		
 		for(int i = 0; i < length; i++){
@@ -154,24 +170,20 @@ public class GradeCalculations {
 		}
 	}
 	
-	static void sort(ArrayList<Double> scoresList) {
+	void sort(ArrayList<Double> scoresList) {
 		Collections.sort(scoresList);
 	}
 	
-	static void graphs(){
-		
-	}
-	
-	static void determineDistribution() {
+	void determineDistribution() {
 		int bucketSize =  (int) Math.floor(high/low); 
 	}
 	
 	
-	static void addNewError(String newMessage) {
+	void addNewError(String newMessage) {
 		errorMessages.add(newMessage);
 	}
 	
-	static void printArray() {
+	void printArray() {
 		errorMessages.forEach(error -> {;
 			System.out.println(error);
 		});

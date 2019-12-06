@@ -42,6 +42,11 @@ public class GCFrame extends JFrame {
 	private JLabel cMode;
 	private String workingFile;
 	
+	private int highB;
+	private int lowB;
+	
+	private GradeCalculations gCalcs = new GradeCalculations();
+	
 	
 	public String getWorkingFile() {
 		return workingFile;
@@ -152,53 +157,99 @@ public class GCFrame extends JFrame {
 												
 												textField_3 = new JTextField();
 												textField_3.setColumns(10);
+												
+												JButton btnAppend = new JButton("Append");
+												btnAppend.setForeground(new Color(255, 140, 0));
+												btnAppend.setBackground(Color.WHITE);
+												btnAppend.addMouseListener(new MouseAdapter() {
+													@Override
+													public void mouseClicked(MouseEvent e) {
+														handleAppend(textField_3.getText());
+													}
+												});
+												
+												JButton btnDelete = new JButton("Delete");
+												btnDelete.setForeground(new Color(255, 140, 0));
+												btnDelete.setBackground(Color.WHITE);
+												btnDelete.addMouseListener(new MouseAdapter() {
+													@Override
+													public void mouseClicked(MouseEvent e) {
+														handleDelete(textField_2.getText());
+													}
+												});
+												
+												JButton btnBoundary = new JButton("Submit Boundaries");
+												btnBoundary.setForeground(new Color(255, 140, 0));
+												btnBoundary.setBackground(Color.WHITE);
+												btnBoundary.addMouseListener(new MouseAdapter() {
+													@Override
+													public void mouseClicked(MouseEvent e) {
+														System.out.println("zzz");
+														updateBoundaries(textField.getText(), textField_1.getText());
+													}
+												});
+												
 												GroupLayout gl_valuePanel = new GroupLayout(valuePanel);
 												gl_valuePanel.setHorizontalGroup(
 													gl_valuePanel.createParallelGroup(Alignment.TRAILING)
 														.addGroup(gl_valuePanel.createSequentialGroup()
-															.addGap(212)
+															.addGroup(gl_valuePanel.createParallelGroup(Alignment.LEADING, false)
+																.addGroup(gl_valuePanel.createSequentialGroup()
+																	.addGap(170)
+																	.addGroup(gl_valuePanel.createParallelGroup(Alignment.LEADING)
+																		.addComponent(lblLowBoundary)
+																		.addComponent(textField, GroupLayout.PREFERRED_SIZE, 68, GroupLayout.PREFERRED_SIZE))
+																	.addGap(18)
+																	.addGroup(gl_valuePanel.createParallelGroup(Alignment.LEADING)
+																		.addComponent(lblHighBoundary)
+																		.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE))
+																	.addGap(49))
+																.addGroup(Alignment.TRAILING, gl_valuePanel.createSequentialGroup()
+																	.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+																	.addComponent(btnBoundary)
+																	.addGap(72)))
 															.addGroup(gl_valuePanel.createParallelGroup(Alignment.LEADING)
-																.addComponent(lblLowBoundary)
-																.addComponent(textField, GroupLayout.PREFERRED_SIZE, 68, GroupLayout.PREFERRED_SIZE)
-																.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE)
-																.addComponent(lblHighBoundary))
-															.addGap(175)
+																.addGroup(gl_valuePanel.createParallelGroup(Alignment.LEADING)
+																	.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, 79, GroupLayout.PREFERRED_SIZE)
+																	.addComponent(lblAppendValue, Alignment.TRAILING))
+																.addComponent(btnAppend))
+															.addGap(18)
 															.addGroup(gl_valuePanel.createParallelGroup(Alignment.LEADING)
 																.addGroup(gl_valuePanel.createSequentialGroup()
-																	.addComponent(lblAppendValue)
-																	.addContainerGap())
-																.addGroup(gl_valuePanel.createParallelGroup(Alignment.LEADING)
-																	.addGroup(gl_valuePanel.createSequentialGroup()
-																		.addGroup(gl_valuePanel.createParallelGroup(Alignment.LEADING)
-																			.addComponent(lblDeleteValue, GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
-																			.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-																		.addGap(223))
-																	.addGroup(gl_valuePanel.createSequentialGroup()
-																		.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-																		.addContainerGap()))))
+																	.addComponent(lblDeleteValue, GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
+																	.addContainerGap(46, Short.MAX_VALUE))
+																.addGroup(gl_valuePanel.createSequentialGroup()
+																	.addGroup(gl_valuePanel.createParallelGroup(Alignment.TRAILING, false)
+																		.addComponent(textField_2, Alignment.LEADING, 0, 0, Short.MAX_VALUE)
+																		.addComponent(btnDelete, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+																	.addContainerGap())))
 												);
 												gl_valuePanel.setVerticalGroup(
-													gl_valuePanel.createParallelGroup(Alignment.LEADING)
+													gl_valuePanel.createParallelGroup(Alignment.TRAILING)
 														.addGroup(gl_valuePanel.createSequentialGroup()
 															.addContainerGap()
-															.addGroup(gl_valuePanel.createParallelGroup(Alignment.BASELINE)
-																.addComponent(lblLowBoundary)
-																.addComponent(lblDeleteValue, GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE))
-															.addPreferredGap(ComponentPlacement.RELATED)
-															.addGroup(gl_valuePanel.createParallelGroup(Alignment.BASELINE)
-																.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-																.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-															.addPreferredGap(ComponentPlacement.RELATED)
 															.addGroup(gl_valuePanel.createParallelGroup(Alignment.TRAILING)
+																.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 																.addGroup(gl_valuePanel.createSequentialGroup()
-																	.addComponent(lblAppendValue)
-																	.addPreferredGap(ComponentPlacement.UNRELATED)
-																	.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+																	.addGroup(gl_valuePanel.createParallelGroup(Alignment.BASELINE)
+																		.addComponent(lblLowBoundary)
+																		.addComponent(lblHighBoundary))
+																	.addPreferredGap(ComponentPlacement.RELATED)
+																	.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+																.addGroup(gl_valuePanel.createParallelGroup(Alignment.BASELINE)
+																	.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+																	.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 																.addGroup(gl_valuePanel.createSequentialGroup()
-																	.addComponent(lblHighBoundary)
-																	.addGap(10)
-																	.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-															.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+																	.addGroup(gl_valuePanel.createParallelGroup(Alignment.BASELINE)
+																		.addComponent(lblAppendValue)
+																		.addComponent(lblDeleteValue, GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE))
+																	.addGap(29)))
+															.addPreferredGap(ComponentPlacement.RELATED)
+															.addGroup(gl_valuePanel.createParallelGroup(Alignment.BASELINE)
+																.addComponent(btnDelete)
+																.addComponent(btnAppend)
+																.addComponent(btnBoundary))
+															.addGap(11))
 												);
 												valuePanel.setLayout(gl_valuePanel);
 				
@@ -362,13 +413,13 @@ public class GCFrame extends JFrame {
 				JLabel lblNewLabel_1 = new JLabel("Processes, analyzes, and outputs grade data.");
 				titlePanel.add(lblNewLabel_1, "cell 0 2,alignx center,growy");
 				
-				JButton btnLoadData = new JButton("Load Data");
+				JButton btnLoadData = new JButton("Load Data File");
 				btnLoadData.setFont(new Font("Tahoma", Font.BOLD, 12));
 				titlePanel.add(btnLoadData, "flowx,cell 0 4,alignx center,aligny center");
 				btnLoadData.setForeground(new Color(255, 140, 0));
 				btnLoadData.setBackground(Color.WHITE);
 				
-				JButton btnAppendData = new JButton("Append Data");
+				JButton btnAppendData = new JButton("Append Data File");
 				btnAppendData.setBackground(Color.WHITE);
 				btnAppendData.setFont(new Font("Tahoma", Font.BOLD, 12));
 				titlePanel.add(btnAppendData, "cell 0 4,alignx center,aligny center");
@@ -406,5 +457,44 @@ public class GCFrame extends JFrame {
         fileName = sb.toString();
         workingFile = fileName;
         System.out.println(workingFile);
+	}
+	
+	private void updateBoundaries(String low, String high) {
+		highB = Integer.parseInt(high);
+		lowB = Integer.parseInt(low);
+		
+		try {
+			gCalcs.tester();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		gCalcs.setHigh(getHighB());
+		gCalcs.setLow(getLowB());
+	}
+	
+	public int getHighB() {
+		return highB;
+	}
+
+	public void setHighB(int highB) {
+		this.highB = highB;
+	}
+
+	public int getLowB() {
+		return lowB;
+	}
+
+	public void setLowB(int lowB) {
+		this.lowB = lowB;
+	}
+
+	private void handleAppend(String number) {
+		
+	}
+	
+	private void handleDelete(String number) {
+		
 	}
 }
