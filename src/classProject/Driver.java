@@ -28,31 +28,23 @@ public class Driver {
 		//this is how you call the file 
 		frame.getWorkingFile();
 		
-		//test and example of how to change the c values..
+		//Handle file in
 		
+		//Handle file processing
 		
+		//get boundaries from gui, pass to gCalcs
+				//check file elemenents against boundaries
+				//run calculations
+				//write data back to mean/meadian/mode/element amount in GCFrame
+				
 		
-		while (true) {
+		//Handle Data to Table
 		
-			//Handle file in
-			
-			//Handle file processing
-			
-			//get boundaries from gui, pass to gCalcs
-			frame.getcMean().setText("test");
-					//check file elemenents against boundaries
-					//run calculations
-					//write data back to mean/meadian/mode/element amount in GCFrame
-					
-			
-			//Handle Data to Table
-			
-			//Handle Table to GraphClass
-			
-			//Handle Distribution by percentage? not sure how this is different from bar graph.
-			
-			//Handle append to file from keyboard text box
-		}
+		//Handle Table to GraphClass
+		
+		//Handle Distribution by percentage? not sure how this is different from bar graph.
+		
+		//Handle append to file from keyboard text box
 		
 	}
 	

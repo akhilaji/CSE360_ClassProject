@@ -6,33 +6,83 @@ import java.util.List;
 
 public class GradeCalculations {
 	
-	private int high;
-	private int low;
+	private int highBound;
+	private int lowBound;
+	
+	
+
+	private double highValue;
+	private double lowValue;
+	private double mean;
+	private double median;
+	private double mode;
 	public ArrayList<String> errorMessages;
 	public ArrayList<Double> scoresList;
 	
 	
+	public double getMean() {
+		return mean;
+	}
+
+	public void setMean(double mean) {
+		this.mean = mean;
+	}
+
+	public double getMedian() {
+		return median;
+	}
+
+	public void setMedian(double median) {
+		this.median = median;
+	}
+
+	public double getMode() {
+		return mode;
+	}
+
+	public void setMode(double mode) {
+		this.mode = mode;
+	}
 	
-	
-	public  double getHigh() {
-		return high;
+	public int getHighBound() {
+		return highBound;
 	}
 
-	public void setHigh(int high) {
-		this.high = high;
+	public void setHighBound(int highBound) {
+		this.highBound = highBound;
 	}
 
-	public double getLow() {
-		return low;
+	public int getLowBound() {
+		return lowBound;
 	}
 
-	public void setLow(int low) {
-		this.low = low;
+	public void setLowBound(int lowBound) {
+		this.lowBound = lowBound;
 	}
+
+	public double getHighValue() {
+		return highValue;
+	}
+
+	public void setHighValue(double highValue) {
+		this.highValue = highValue;
+	}
+
+	public double getLowValue() {
+		return lowValue;
+	}
+
+	public void setLowValue(double lowValue) {
+		this.lowValue = lowValue;
+	}
+
 
 	public GradeCalculations() {
 		errorMessages  = new ArrayList<String>();
 		scoresList = new ArrayList<Double>();
+		mean = 0;
+		median = 0;
+		mode = 0;
 	}
 	
 	//this was everything in the main from this file
@@ -62,6 +112,14 @@ public class GradeCalculations {
 		System.out.println("Median: "+median(scoresList));
 		System.out.println("Mean: "+mean(scoresList));
 		System.out.println("Mode: "+mode(scoresList));
+	}
+	
+	void updateAll() {
+		highValue = getHigh(scoresList);
+		lowValue = getLow(scoresList);
+		median = median(scoresList);
+		mean = mean(scoresList);
+		mode = mode(scoresList);
 	}
 
 	double getHigh(ArrayList<Double> scoresList) {
@@ -159,7 +217,7 @@ public class GradeCalculations {
 		for(int i = 0; i < length; i++){
 			double temp = scoresList.get(i);
 			//check to determine if there are violations of the boundaries
-			if(temp > high || temp < low){
+			if(temp > highBound || temp < lowBound){
 				addNewError("Data Element at index: " + i + " is out of bounds");
 				
 				//remove the violating data and recalculate values
@@ -174,9 +232,8 @@ public class GradeCalculations {
 	}
 	
 	void determineDistribution() {
-		int bucketSize =  (int) Math.floor(high/low); 
+		int bucketSize =  (int) Math.floor(highBound/lowBound); 
 	}
-	
 	
 	void addNewError(String newMessage) {
 		errorMessages.add(newMessage);

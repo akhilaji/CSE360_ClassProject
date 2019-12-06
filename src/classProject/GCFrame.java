@@ -47,6 +47,21 @@ public class GCFrame extends JFrame {
 	
 	private GradeCalculations gCalcs = new GradeCalculations();
 	
+	public int getHighB() {
+		return highB;
+	}
+
+	public void setHighB(int highB) {
+		this.highB = highB;
+	}
+
+	public int getLowB() {
+		return lowB;
+	}
+
+	public void setLowB(int lowB) {
+		this.lowB = lowB;
+	}
 	
 	public String getWorkingFile() {
 		return workingFile;
@@ -462,31 +477,25 @@ public class GCFrame extends JFrame {
 		highB = Integer.parseInt(high);
 		lowB = Integer.parseInt(low);
 		
-		gCalcs.setHigh(getHighB());
-		gCalcs.setLow(getLowB());
+		gCalcs.setHighBound(getHighB());
+		gCalcs.setLowBound(getLowB());
+		updateCalculations();
 	}
 	
-	public int getHighB() {
-		return highB;
+	private void updateCalculations() {
+		this.cMean.setText(gCalcs.getMean()+"");
+		this.cMedian.setText(gCalcs.getMedian()+"");
+		this.cMode.setText(gCalcs.getMode()+"");
 	}
 
-	public void setHighB(int highB) {
-		this.highB = highB;
-	}
-
-	public int getLowB() {
-		return lowB;
-	}
-
-	public void setLowB(int lowB) {
-		this.lowB = lowB;
-	}
 
 	private void handleAppend(String number) {
-		
+		//add value code here
+		updateCalculations();
 	}
 	
 	private void handleDelete(String number) {
-		
+		//add delete code here
+		updateCalculations();
 	}
 }
