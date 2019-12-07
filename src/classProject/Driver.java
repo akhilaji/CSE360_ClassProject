@@ -3,6 +3,7 @@ package classProject;
 import java.awt.EventQueue;
 
 import javax.swing.JLabel;
+import javax.swing.table.DefaultTableModel;
 
 public class Driver {
 	
@@ -27,6 +28,8 @@ public class Driver {
 		
 		//this is how you call the file 
 		frame.getWorkingFile();
+		
+		frame.getGradeTable().setModel(new DefaultTableModel());
 		
 		//Handle file in
 		

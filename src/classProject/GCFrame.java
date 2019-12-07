@@ -312,14 +312,24 @@ public class GCFrame extends JFrame {
 				JLabel lblNewLabel_2 = new JLabel("Error Logging");
 				lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 18));
 				
-				JButton btnWriteLogTo = new JButton("Write Log to File");
-				btnWriteLogTo.setForeground(new Color(255, 140, 0));
-				btnWriteLogTo.setBackground(Color.WHITE);
+	
 				
-				JTextArea errorArea = new JTextArea("No errors have occurred so far!");
+				JTextArea errorArea = new JTextArea("No errors have occurred yet!");
 				errorArea.setFont(new Font("Monospaced", Font.PLAIN, 12));
 				errorArea.setLineWrap(true);
 				errorArea.setEditable(false);
+				
+				JButton btnWriteLogTo = new JButton("Write Log to File");
+				btnWriteLogTo.setForeground(new Color(255, 140, 0));
+				btnWriteLogTo.setBackground(Color.WHITE);
+				btnWriteLogTo.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						handleWriteToLog(errorArea.getText());
+					}
+				});
+				
+				
 				GroupLayout gl_errorPanel = new GroupLayout(errorPanel);
 				gl_errorPanel.setHorizontalGroup(
 					gl_errorPanel.createParallelGroup(Alignment.TRAILING)
@@ -545,5 +555,9 @@ public class GCFrame extends JFrame {
 	private void handleDelete(String number) {
 		//add delete code here
 		updateCalculations();
+	}
+	
+	private void handleWriteToLog(String out) {
+		//do stuff
 	}
 }
