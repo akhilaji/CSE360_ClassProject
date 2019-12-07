@@ -1,4 +1,4 @@
-package gradeCalculator;
+package classProject;
 
 /*
  * Class creates and maintains an ArrayList of grade values.
@@ -7,12 +7,12 @@ package gradeCalculator;
  * The contents of the ArrayList can then be printed.
  */
 
-import java.io.File;
+import java.io.*;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class GradeFileReader {
-	private ArrayList<Float> gradeValues;
+	private ArrayList<Double> gradeValues;
 
 	/*
 	 * Constructor takes in a file name, opens it, and saves its
@@ -20,23 +20,31 @@ public class GradeFileReader {
 	 * Input: A file name, can be txt or csv
 	 */
 	public GradeFileReader( String fileName ) throws Exception {
-		this.gradeValues = new ArrayList<Float>();
+		this.gradeValues = new ArrayList<Double>();
 		
 		File file = new File(fileName);
 		Scanner fileReader = new Scanner(file);
 		fileReader.useDelimiter(",|\\n");
 		
 		String readValue;
-		float value;
+		Double value;
 		while (fileReader.hasNext() ) {
 			readValue = fileReader.next();
-			value = Integer.parseInt(readValue);
+			value = Double.parseDouble(readValue);
 			gradeValues.add(value);
 		}
 		
 		fileReader.close();
 	}
 	
+	public ArrayList<Double> getGradeValues() {
+		return gradeValues;
+	}
+
+	public void setGradeValues(ArrayList<Double> gradeValues) {
+		this.gradeValues = gradeValues;
+	}
+
 	/*
 	 * Prints all values in the class' ArrayList variable.
 	 */
@@ -46,5 +54,17 @@ public class GradeFileReader {
 		}
 	}
 	
-	
+	/*
+	 * Prints all values in the class' ArrayList to a file.
+	 */
+	public void writeGradesToFile() throws IOException {
+		String value = "";
+		BufferedWriter gradeWriter = new BufferedWriter( new FileWriter( "gradeValues.txt") );
+		for ( int i = 0; i < gradeValues.size(); i++ ) {
+			value = Double.toString( gradeValues.get(i) );
+			gradeWriter.write(value);
+			gradeWriter.newLine();
+		}
+		gradeWriter.close();
+	}
 }

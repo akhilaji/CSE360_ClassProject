@@ -13,6 +13,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.util.ArrayList;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
@@ -48,7 +49,10 @@ public class GCFrame extends JFrame {
 	private int highB;
 	private int lowB;
 	
+	JTextArea errorArea;
+	
 	private GradeCalculations gCalcs = new GradeCalculations();
+	GradeFileReader gFileReader;
 	
 	public int getHighB() {
 		return highB;
@@ -314,7 +318,7 @@ public class GCFrame extends JFrame {
 				
 	
 				
-				JTextArea errorArea = new JTextArea("No errors have occurred yet!");
+				errorArea = new JTextArea("No errors have occurred yet!");
 				errorArea.setFont(new Font("Monospaced", Font.PLAIN, 12));
 				errorArea.setLineWrap(true);
 				errorArea.setEditable(false);
@@ -506,9 +510,19 @@ public class GCFrame extends JFrame {
 					@Override
 					public void mouseClicked(MouseEvent e) {
 						chooseFile();
+						try {
+							updateCurrentList();
+						} catch (Exception e1) {
+							gCalcs.addNewError("Exception thrown when updating list from btnLoadData" + e1.getClass());
+							updateErrors();
+						}
 					}
 				});
 				contentPane.setLayout(gl_contentPane);
+				//-----------------non generated
+				//updating values after window is setup
+				updateCalculations();
+				updateBoundaries(textField.getText(), textField_1.getText());
 	}
 	
 	private void chooseFile() {
@@ -523,7 +537,7 @@ public class GCFrame extends JFrame {
         if (retVal == JFileChooser.APPROVE_OPTION) {
             File[] selectedfiles = fc.getSelectedFiles();
             for (int i = 0; i < selectedfiles.length; i++) {
-                sb.append(selectedfiles[i].getName() + "\n");               
+                sb.append(selectedfiles[i].getAbsolutePath() + "\n");               
             }
         }
         fileName = sb.toString();
@@ -538,26 +552,45 @@ public class GCFrame extends JFrame {
 		gCalcs.setHighBound(getHighB());
 		gCalcs.setLowBound(getLowB());
 		updateCalculations();
+		updateErrors();
+	}
+	
+	private void updateCurrentList() throws Exception {
+		gFileReader = new GradeFileReader(workingFile);
+		gCalcs.scoresList = (ArrayList<Double>)gFileReader.getGradeValues();
+		updateCalculations();
+		updateErrors();
 	}
 	
 	private void updateCalculations() {
 		this.cMean.setText(gCalcs.getMean()+"");
 		this.cMedian.setText(gCalcs.getMedian()+"");
 		this.cMode.setText(gCalcs.getMode()+"");
+		updateErrors();
 	}
 
 
 	private void handleAppend(String number) {
 		//add value code here
 		updateCalculations();
+		updateErrors();
 	}
 	
 	private void handleDelete(String number) {
 		//add delete code here
 		updateCalculations();
+		updateErrors();
 	}
 	
 	private void handleWriteToLog(String out) {
 		//do stuff
+	}
+	
+	private void updateErrors() {
+		String result = "";
+		for(String st : gCalcs.errorMessages) {
+			result += st + "\n";
+		}
+		errorArea.setText(result);
 	}
 }

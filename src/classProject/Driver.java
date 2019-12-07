@@ -3,6 +3,7 @@ package classProject;
 import java.awt.EventQueue;
 
 import javax.swing.JLabel;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 public class Driver {
@@ -14,6 +15,7 @@ public class Driver {
 		//variables//
 		GCFrame frame;
 		GraphClass gClass;
+		ErrorHandler eHandler;
 		
 		//GCFrame is the gui class, frame is our instance of the JFrame, GradeCalculation does as named
 		frame = new GCFrame();
@@ -22,6 +24,7 @@ public class Driver {
 
 		// *********** delete this later !************
 		int[] data = new int[] {100, 40, 30, 75, 80, 55, 67, 77, 88, 66};
+		int rows =  4;
 		gClass = new GraphClass();
 		frame.getDistribution1().setScene(gClass.barGraph(data)); 
 		
@@ -29,7 +32,16 @@ public class Driver {
 		//this is how you call the file 
 		frame.getWorkingFile();
 		
-		frame.getGradeTable().setModel(new DefaultTableModel());
+		//file
+		
+		
+		
+		
+		JTable table = new JTable(new DefaultTableModel(4, rows));
+		DefaultTableModel model = (DefaultTableModel) table.getModel();
+		model.addRow(new Object[]{"Column 1", "Column 2", "Column 3"});
+		
+		frame.getGradeTable().setModel(model);
 		
 		//Handle file in
 		
