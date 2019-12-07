@@ -15,7 +15,6 @@ public class Driver {
 		//variables//
 		GCFrame frame;
 		GraphClass gClass;
-		ErrorHandler eHandler;
 		
 		//GCFrame is the gui class, frame is our instance of the JFrame, GradeCalculation does as named
 		frame = new GCFrame();
@@ -27,14 +26,7 @@ public class Driver {
 		int rows =  4;
 		gClass = new GraphClass();
 		frame.getDistribution1().setScene(gClass.barGraph(data)); 
-		
-		
-		//this is how you call the file 
-		frame.getWorkingFile();
-		
-		//file
-		
-		
+
 		
 		
 		JTable table = new JTable(new DefaultTableModel(4, rows));
@@ -42,25 +34,7 @@ public class Driver {
 		model.addRow(new Object[]{"Column 1", "Column 2", "Column 3"});
 		
 		frame.getGradeTable().setModel(model);
-		
-		//Handle file in
-		
-		//Handle file processing
-		
-		//get boundaries from gui, pass to gCalcs
-				//check file elemenents against boundaries
-				//run calculations
-				//write data back to mean/meadian/mode/element amount in GCFrame
-				
-		
-		//Handle Data to Table
-		
-		//Handle Table to GraphClass
-		
-		//Handle Distribution by percentage? not sure how this is different from bar graph.
-		
-		//Handle append to file from keyboard text box
-		
+
 	}
 	
 	

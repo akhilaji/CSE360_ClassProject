@@ -13,6 +13,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.GroupLayout;
@@ -23,6 +24,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JTable;
 import javax.swing.border.MatteBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import javafx.embed.swing.JFXPanel;
 
@@ -30,6 +32,8 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JTextArea;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class GCFrame extends JFrame {
 	private JPanel contentPane;
@@ -329,26 +333,39 @@ public class GCFrame extends JFrame {
 				btnWriteLogTo.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
-						handleWriteToLog(errorArea.getText());
+						handleWriteToLog();
+					}
+				});
+				
+				JButton btnWriteGradesTo = new JButton("Write Grades to File");
+
+				btnWriteGradesTo.setForeground(new Color(255, 140, 0));
+				btnWriteGradesTo.setBackground(Color.WHITE);
+				btnWriteGradesTo.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						 handleWriteToGrades();
 					}
 				});
 				
 				
 				GroupLayout gl_errorPanel = new GroupLayout(errorPanel);
 				gl_errorPanel.setHorizontalGroup(
-					gl_errorPanel.createParallelGroup(Alignment.TRAILING)
+					gl_errorPanel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_errorPanel.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(errorArea, GroupLayout.DEFAULT_SIZE, 717, Short.MAX_VALUE)
+							.addGroup(gl_errorPanel.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_errorPanel.createSequentialGroup()
+									.addGap(331)
+									.addComponent(lblNewLabel_2))
+								.addGroup(gl_errorPanel.createSequentialGroup()
+									.addGap(149)
+									.addComponent(btnWriteLogTo, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE)
+									.addGap(138)
+									.addComponent(btnWriteGradesTo, GroupLayout.PREFERRED_SIZE, 152, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_errorPanel.createSequentialGroup()
+									.addContainerGap()
+									.addComponent(errorArea, GroupLayout.DEFAULT_SIZE, 719, Short.MAX_VALUE)))
 							.addContainerGap())
-						.addGroup(Alignment.LEADING, gl_errorPanel.createSequentialGroup()
-							.addGap(331)
-							.addComponent(lblNewLabel_2)
-							.addContainerGap(333, Short.MAX_VALUE))
-						.addGroup(gl_errorPanel.createSequentialGroup()
-							.addContainerGap(306, Short.MAX_VALUE)
-							.addComponent(btnWriteLogTo, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE)
-							.addGap(292))
 				);
 				gl_errorPanel.setVerticalGroup(
 					gl_errorPanel.createParallelGroup(Alignment.LEADING)
@@ -356,9 +373,11 @@ public class GCFrame extends JFrame {
 							.addGap(5)
 							.addComponent(lblNewLabel_2)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(errorArea, GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
+							.addComponent(errorArea, GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(btnWriteLogTo)
+							.addGroup(gl_errorPanel.createParallelGroup(Alignment.BASELINE)
+								.addComponent(btnWriteLogTo)
+								.addComponent(btnWriteGradesTo))
 							.addGap(5))
 				);
 				errorPanel.setLayout(gl_errorPanel);
@@ -529,20 +548,16 @@ public class GCFrame extends JFrame {
         final JFrame frame = new JFrame("Choose a file");
         
         final JFileChooser fc = new JFileChooser();
-        fc.setMultiSelectionEnabled(true);
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("TEXT FILES", "txt", "text", "csv");
+        fc.setFileFilter(filter);
+        fc.setMultiSelectionEnabled(false);
         
         String fileName = "";
-        StringBuilder sb = new StringBuilder();
         int retVal = fc.showOpenDialog(frame);    
         if (retVal == JFileChooser.APPROVE_OPTION) {
-            File[] selectedfiles = fc.getSelectedFiles();
-            for (int i = 0; i < selectedfiles.length; i++) {
-                sb.append(selectedfiles[i].getAbsolutePath() + "\n");               
-            }
+            fileName = fc.getSelectedFile().getAbsolutePath();
         }
-        fileName = sb.toString();
         workingFile = fileName;
-        System.out.println(workingFile);
 	}
 	
 	private void updateBoundaries(String low, String high) {
@@ -557,38 +572,54 @@ public class GCFrame extends JFrame {
 	
 	private void updateCurrentList() throws Exception {
 		gFileReader = new GradeFileReader(workingFile);
-		gCalcs.scoresList = (ArrayList<Double>)gFileReader.getGradeValues();
+		gCalcs.setScoresList(gFileReader.getGradeValues());
 		updateCalculations();
-		updateErrors();
 	}
 	
 	private void updateCalculations() {
+		gCalcs.updateAll();
+		this.cEntries.setText(gCalcs.getScoresList().size()+"");
 		this.cMean.setText(gCalcs.getMean()+"");
 		this.cMedian.setText(gCalcs.getMedian()+"");
 		this.cMode.setText(gCalcs.getMode()+"");
-		updateErrors();
 	}
 
 
 	private void handleAppend(String number) {
-		//add value code here
+		gCalcs.getScoresList().add(Double.parseDouble(number));
 		updateCalculations();
 		updateErrors();
 	}
 	
 	private void handleDelete(String number) {
-		//add delete code here
+		gCalcs.delete(number, gCalcs.getScoresList());
 		updateCalculations();
 		updateErrors();
 	}
 	
-	private void handleWriteToLog(String out) {
-		//do stuff
+	private void handleWriteToLog() {
+		try {
+			if(gCalcs.getErrorMessages() != null)
+				gFileReader.writeErrorsToFile(gCalcs.getErrorMessages());
+		} catch (IOException e) {
+			gCalcs.addNewError("Exception thrown when writing file " + e.getClass());
+			updateErrors();
+		}
+	}
+	
+	private void handleWriteToGrades() {
+		try {
+			if(gCalcs.getScoresList() != null)
+				gFileReader.writeGradesToFile();
+		} catch (IOException e) {
+			gCalcs.addNewError("Exception thrown when writing file " + e.getClass());
+			updateErrors();
+		}
 	}
 	
 	private void updateErrors() {
 		String result = "";
-		for(String st : gCalcs.errorMessages) {
+		for(String st : gCalcs.getErrorMessages()) {
 			result += st + "\n";
 		}
 		errorArea.setText(result);

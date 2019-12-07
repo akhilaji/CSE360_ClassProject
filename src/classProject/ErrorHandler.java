@@ -31,7 +31,5 @@ public class ErrorHandler {
 			System.out.println(error);
 		});
 	}
-	
-	
 
 }
