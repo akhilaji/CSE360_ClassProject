@@ -317,19 +317,28 @@ public class GradeCalculations {
 	void delete(double value, ArrayList<Double> scoresList) {
 		int counter = 0;
 		boolean elementFoundFlag = false;
-		
-		while (0 < scoresList.size() && elementFoundFlag == false)
-		{
-		   if(scoresList.get(counter) == (value))
-		   {
-		     // Remove item
-			  scoresList.remove(counter);
-			  elementFoundFlag = true;
-		  }
-		  else
-		  {
-		    ++counter;
-		  }
+		if(scoresList.size() == 0) {
+			addNewError("The dataset is empty, delete can't be performed");
+		}else {
+			try {
+				while (0 < scoresList.size() && elementFoundFlag == false)
+				{
+				   if(scoresList.get(counter) == (value))
+				   {
+				     // Remove item
+					  scoresList.remove(counter);
+					  elementFoundFlag = true;
+				  }
+				  else
+				  {
+				    ++counter;
+				  }
+				}			
+			}catch(Exception e) {
+				  addNewError("Error performing deletion, item not available");
+			}
+			
+			
 		}
 		
 	}
