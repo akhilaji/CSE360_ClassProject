@@ -375,6 +375,7 @@ public class GradeCalculations {
 				//remove the violating data and recalculate values
 				delete(temp,  scoresList);
 				updateAll();
+				determineDistribution(scoresList);
 				throw new Exception("Data Element at index: " + i + " is out of bounds");
 			}
 		}
@@ -392,12 +393,25 @@ public class GradeCalculations {
 	 *
 	 */
 	void determineDistribution(ArrayList<Double> scoresList) {
+		//prepare arrays for new distribution
+		
+		zeroToNine.clear();
+		tenToNineteen.clear();
+		twentyToTwentynine.clear();
+		thirtyToThirtynine.clear();
+		fortyToFortynine.clear();
+		fiftyToFiftynine.clear();
+		sixtyToSixtynine.clear();
+		seventyToSeventynine.clear();
+		eightyToEightynine.clear();
+		ninetyToHundred.clear();
+
 		int bucketSize =  (int) Math.floor(highBound/lowBound);
 
 		for(int i = 0; i < scoresList.size(); i ++) {
 			double average = scoresList.get(i)/highBound;
 
-
+			
 
 			if(average >= 0 && average <= 9) {
 				zeroToNine.add(scoresList.get(i));
