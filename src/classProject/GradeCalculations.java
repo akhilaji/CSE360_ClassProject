@@ -14,10 +14,28 @@ public class GradeCalculations {
 	private double mean;
 	private double median;
 	private double mode;
-	public ArrayList<String> errorMessages;
-	public ArrayList<Double> scoresList;
+	private ArrayList<String> errorMessages;
+	private ArrayList<Double> scoresList;
 	
 	
+	
+	
+	public ArrayList<String> getErrorMessages() {
+		return errorMessages;
+	}
+
+	public void setErrorMessages(ArrayList<String> errorMessages) {
+		this.errorMessages = errorMessages;
+	}
+
+	public ArrayList<Double> getScoresList() {
+		return scoresList;
+	}
+
+	public void setScoresList(ArrayList<Double> scoresList) {
+		this.scoresList = scoresList;
+	}
+
 	public double getMean() {
 		return mean;
 	}
@@ -115,11 +133,13 @@ public class GradeCalculations {
 	}
 	
 	void updateAll() {
-		highValue = getHigh(scoresList);
-		lowValue = getLow(scoresList);
-		median = median(scoresList);
-		mean = mean(scoresList);
-		mode = mode(scoresList);
+		if(scoresList.size() > 0) {
+			highValue = getHigh(scoresList);
+			lowValue = getLow(scoresList);
+			median = median(scoresList);
+			mean = mean(scoresList);
+			mode = mode(scoresList);
+		}
 	}
 
 	double getHigh(ArrayList<Double> scoresList) {

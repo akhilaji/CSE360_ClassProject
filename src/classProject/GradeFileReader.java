@@ -67,4 +67,15 @@ public class GradeFileReader {
 		}
 		gradeWriter.close();
 	}
+	
+	public void writeErrorsToFile(ArrayList<String> errors) throws IOException {
+		String value = "";
+		BufferedWriter gradeWriter = new BufferedWriter( new FileWriter( "errorLog.txt") );
+		for ( int i = 0; i < errors.size(); i++ ) {
+			value = errors.get(i);
+			gradeWriter.write(value);
+			gradeWriter.newLine();
+		}
+		gradeWriter.close();
+	}
 }
