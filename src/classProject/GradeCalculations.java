@@ -346,7 +346,7 @@ public class GradeCalculations {
 		    ++counter;
 		  }
 		}
-
+		elementFoundFlag = false;
 	}
 
 	/**
