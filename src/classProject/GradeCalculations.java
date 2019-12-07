@@ -4,6 +4,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * 
+ * This class performs all the necessary calculations for the scores dataset
+ * @author 
+ *
+ */
 public class GradeCalculations {
 	
 	private int highBound;
@@ -17,64 +23,112 @@ public class GradeCalculations {
 	public ArrayList<String> errorMessages;
 	public ArrayList<Double> scoresList;
 	
-	
+	/**
+	 * 
+	 * @return
+	 */
 	public double getMean() {
 		return mean;
 	}
-
+	/**
+	 * 
+	 * @param mean
+	 */
 	public void setMean(double mean) {
 		this.mean = mean;
 	}
-
+	
+	/**
+	 * 
+	 * @return median value
+	 */
 	public double getMedian() {
 		return median;
 	}
-
+	
+	/**
+	 * 
+	 * @param median
+	 */
 	public void setMedian(double median) {
 		this.median = median;
 	}
-
+	
+	/**
+	 * 
+	 * @return mode value
+	 */
 	public double getMode() {
 		return mode;
 	}
-
+	
+	/**
+	 * 
+	 * @param mode 
+	 */
 	public void setMode(double mode) {
 		this.mode = mode;
 	}
-	
+	/**
+	 * 
+	 * @return
+	 */
 	public int getHighBound() {
 		return highBound;
 	}
-
+	/**
+	 * 
+	 * @param highBound
+	 */
 	public void setHighBound(int highBound) {
 		this.highBound = highBound;
 	}
-
+	/**
+	 * 
+	 * @return
+	 */
 	public int getLowBound() {
 		return lowBound;
 	}
-
+	/**
+	 * 
+	 * @param lowBound
+	 */
 	public void setLowBound(int lowBound) {
 		this.lowBound = lowBound;
 	}
-
+	/**
+	 * 
+	 * @return
+	 */
 	public double getHighValue() {
 		return highValue;
 	}
-
+	/**
+	 * 
+	 * @param highValue
+	 */
 	public void setHighValue(double highValue) {
 		this.highValue = highValue;
 	}
-
+	/**
+	 * 
+	 * @return
+	 */
 	public double getLowValue() {
 		return lowValue;
 	}
-
+	/**
+	 * 
+	 * @param lowValue
+	 */
 	public void setLowValue(double lowValue) {
 		this.lowValue = lowValue;
 	}
 
-
+	/**
+	 * This function initializes values for calculations
+	 */
 	public GradeCalculations() {
 		errorMessages  = new ArrayList<String>();
 		scoresList = new ArrayList<Double>();
@@ -86,6 +140,10 @@ public class GradeCalculations {
 	}
 	
 	//this was everything in the main from this file
+	/**
+	 * This method has been implemented to manually test valyes
+	 * @throws Exception
+	 */
 	public void tester() throws Exception {
 		//create array of grades
 		ArrayList<Double> scoresList = new ArrayList<Double>();
@@ -113,7 +171,9 @@ public class GradeCalculations {
 		System.out.println("Mean: "+mean(scoresList));
 		System.out.println("Mode: "+mode(scoresList));
 	}
-	
+	/**
+	 * This method will call all of the calculations again to update the values
+	 */
 	void updateAll() {
 		highValue = getHigh(scoresList);
 		lowValue = getLow(scoresList);
@@ -121,7 +181,12 @@ public class GradeCalculations {
 		mean = mean(scoresList);
 		mode = mode(scoresList);
 	}
-
+	
+	/**
+	 * 
+	 * @param scoresList
+	 * @return finds the maximum value in the dataset
+	 */
 	double getHigh(ArrayList<Double> scoresList) {
 		double max = 0;
 		
@@ -136,6 +201,11 @@ public class GradeCalculations {
 		
 	}
 	
+	/**
+	 * 
+	 * @param scoresList
+	 * @return finds the smallest value in the dataset
+	 */
 	double getLow(ArrayList<Double> scoresList) {
 		double min = Double.MAX_VALUE;
 		for(int i = 0; i < scoresList.size(); i++) {
@@ -149,6 +219,11 @@ public class GradeCalculations {
 		return min;
 	}
 	
+	/**
+	 * 
+	 * @param scoresList
+	 * @return finds the median value of the dataset
+	 */
 	double median(ArrayList<Double> scoresList) {
 		double median = 0;
 		Collections.sort(scoresList);
@@ -166,6 +241,11 @@ public class GradeCalculations {
 		return median;
 	}
 	
+	/**
+	 * 
+	 * @param scoresList
+	 * @return calculates the mean of the dataset
+	 */
 	double mean(ArrayList<Double> scoresList) {
 		double mean = 0;
 		if(!scoresList.isEmpty()) {
@@ -184,6 +264,11 @@ public class GradeCalculations {
 		return mean;
 	}
 	
+	/**
+	 * 
+	 * @param scoresList
+	 * @return calculates the mode of the dataset
+	 */
 	double mode(ArrayList<Double> scoresList) {
 		double mode = scoresList.get(0);
 		double max = 0;
@@ -211,13 +296,18 @@ public class GradeCalculations {
 		
 	}
 	
-	void delete(String value, ArrayList<Double> scoresList) {
+	/**
+	 * This method takes a value and checks if it is part of the dataset and deletes the first instance found. 
+	 * @param value
+	 * @param scoresList
+	 */
+	void delete(double value, ArrayList<Double> scoresList) {
 		int counter = 0;
 		boolean elementFoundFlag = false;
 		
 		while (0 < scoresList.size() && elementFoundFlag == false)
 		{
-		   if(scoresList.get(counter).equals(value))
+		   if(scoresList.get(counter) == (value))
 		   {
 		     // Remove item
 			  scoresList.remove(counter);
@@ -231,6 +321,11 @@ public class GradeCalculations {
 		
 	}
 	
+	/**
+	 * This method checks values in the dataset to make sure they conform to the boundary defined by the user/default boundary
+	 * @param scoresList
+	 * @throws Exception
+	 */
 	void checkBoundaries(ArrayList<Double> scoresList) throws Exception {
 		int length = scoresList.size();
 		
@@ -241,24 +336,39 @@ public class GradeCalculations {
 				addNewError("Data Element at index: " + i + " is out of bounds");
 				
 				//remove the violating data and recalculate values
-				
+				delete(temp,  scoresList);
+				updateAll();
 				throw new Exception("Data Element at index: " + i + " is out of bounds");
 			}
 		}
 	}
 	
+	/**
+	 * This function can be used to sort the dataset
+	 * @param scoresList
+	 */
 	void sort(ArrayList<Double> scoresList) {
 		Collections.sort(scoresList);
 	}
 	
+	/**
+	 *  
+	 */
 	void determineDistribution() {
 		int bucketSize =  (int) Math.floor(highBound/lowBound); 
 	}
 	
+	/**
+	 * This function is used to add a new error string to the errorMessages arraylist
+	 * @param newMessage
+	 */
 	void addNewError(String newMessage) {
 		errorMessages.add(newMessage);
 	}
 	
+	/**
+	 * This function prints contents of the error arraylist
+	 */
 	void printArray() {
 		errorMessages.forEach(error -> {;
 			System.out.println(error);
