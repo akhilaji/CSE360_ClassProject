@@ -26,6 +26,9 @@ import javax.swing.border.MatteBorder;
 import javafx.embed.swing.JFXPanel;
 
 import javax.swing.border.EtchedBorder;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.JTextArea;
 
 public class GCFrame extends JFrame {
 	private JPanel contentPane;
@@ -130,7 +133,7 @@ public class GCFrame extends JFrame {
 				
 				
 				setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				setBounds(100, 100, 800, 760);
+				setBounds(100, 100, 800, 950);
 				contentPane = new JPanel();
 				contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 				setContentPane(contentPane);
@@ -274,17 +277,22 @@ public class GCFrame extends JFrame {
 				
 				JPanel distributionPanel = new JPanel();
 				distributionPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+				
+				JPanel errorPanel = new JPanel();
+				errorPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 				GroupLayout gl_contentPane = new GroupLayout(contentPane);
 				gl_contentPane.setHorizontalGroup(
 					gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup()
+						.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
 							.addContainerGap()
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
-								.addComponent(distributionPanel, Alignment.LEADING, 0, 0, Short.MAX_VALUE)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+								.addComponent(errorPanel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 741, Short.MAX_VALUE)
 								.addComponent(analysisPanel, Alignment.LEADING, 0, 0, Short.MAX_VALUE)
-								.addComponent(valuePanel, Alignment.LEADING, 0, 0, Short.MAX_VALUE)
-								.addComponent(titlePanel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 741, Short.MAX_VALUE))
-							.addContainerGap(33, Short.MAX_VALUE))
+								.addGroup(Alignment.LEADING, gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
+									.addComponent(valuePanel, Alignment.LEADING, 0, 0, Short.MAX_VALUE)
+									.addComponent(titlePanel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 741, Short.MAX_VALUE))
+								.addComponent(distributionPanel, Alignment.LEADING, 0, 0, Short.MAX_VALUE))
+							.addGap(31))
 				);
 				gl_contentPane.setVerticalGroup(
 					gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -294,11 +302,52 @@ public class GCFrame extends JFrame {
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(valuePanel, GroupLayout.PREFERRED_SIZE, 121, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(analysisPanel, GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(analysisPanel, GroupLayout.PREFERRED_SIZE, 252, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(distributionPanel, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap())
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(errorPanel, GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE))
 				);
+				
+				JLabel lblNewLabel_2 = new JLabel("Error Logging");
+				lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 18));
+				
+				JButton btnWriteLogTo = new JButton("Write Log to File");
+				btnWriteLogTo.setForeground(new Color(255, 140, 0));
+				btnWriteLogTo.setBackground(Color.WHITE);
+				
+				JTextArea errorArea = new JTextArea("No errors have occurred so far!");
+				errorArea.setFont(new Font("Monospaced", Font.PLAIN, 12));
+				errorArea.setLineWrap(true);
+				errorArea.setEditable(false);
+				GroupLayout gl_errorPanel = new GroupLayout(errorPanel);
+				gl_errorPanel.setHorizontalGroup(
+					gl_errorPanel.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_errorPanel.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(errorArea, GroupLayout.DEFAULT_SIZE, 717, Short.MAX_VALUE)
+							.addContainerGap())
+						.addGroup(Alignment.LEADING, gl_errorPanel.createSequentialGroup()
+							.addGap(331)
+							.addComponent(lblNewLabel_2)
+							.addContainerGap(333, Short.MAX_VALUE))
+						.addGroup(gl_errorPanel.createSequentialGroup()
+							.addContainerGap(306, Short.MAX_VALUE)
+							.addComponent(btnWriteLogTo, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE)
+							.addGap(292))
+				);
+				gl_errorPanel.setVerticalGroup(
+					gl_errorPanel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_errorPanel.createSequentialGroup()
+							.addGap(5)
+							.addComponent(lblNewLabel_2)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(errorArea, GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(btnWriteLogTo)
+							.addGap(5))
+				);
+				errorPanel.setLayout(gl_errorPanel);
 				
 				JLabel lblDistributionGraphs = new JLabel("Distribution Graph");
 				lblDistributionGraphs.setFont(new Font("Tahoma", Font.PLAIN, 18));
