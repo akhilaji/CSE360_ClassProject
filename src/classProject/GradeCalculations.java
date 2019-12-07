@@ -23,6 +23,19 @@ public class GradeCalculations {
 	public ArrayList<String> errorMessages;
 	public ArrayList<Double> scoresList;
 	
+	//Create ArrayLists to store each distribution
+	public ArrayList<Double> zeroToNine;
+	public ArrayList<Double> tenToNineteen;
+	public ArrayList<Double> twentyToTwentynine;
+	public ArrayList<Double> thirtyToThirtynine;
+	public ArrayList<Double> fortyToFortynine;
+	public ArrayList<Double> fiftyToFiftynine;
+	public ArrayList<Double> sixtyToSixtynine;
+	public ArrayList<Double> seventyToSeventynine;
+	public ArrayList<Double> eightyToEightynine;
+	public ArrayList<Double> ninetyToHundred;
+	
+	
 	/**
 	 * 
 	 * @return
@@ -354,8 +367,60 @@ public class GradeCalculations {
 	/**
 	 *  
 	 */
-	void determineDistribution() {
+	void determineDistribution(ArrayList<Double> scoresList) {
 		int bucketSize =  (int) Math.floor(highBound/lowBound); 
+		
+		for(int i = 0; i < scoresList.size(); i ++) {
+			double average = scoresList.get(i)/highBound;
+			
+
+			
+			if(average >= 0 && average <= 9) {
+				zeroToNine.add(scoresList.get(i));
+			}
+			if(average >= 10 && average <= 19) {
+				tenToNineteen.add(scoresList.get(i));
+			}
+			if(average >= 20 && average <= 29) {
+				twentyToTwentynine.add(scoresList.get(i));
+			}
+			if(average >= 30 && average <= 39) {
+				thirtyToThirtynine.add(scoresList.get(i));
+			}
+			if(average >= 40 && average <= 49) {
+				fortyToFortynine.add(scoresList.get(i));
+			}
+			if(average >= 50 && average <= 59) {
+				fiftyToFiftynine.add(scoresList.get(i));
+			}
+			if(average >= 60 && average <= 69) {
+				sixtyToSixtynine.add(scoresList.get(i));
+			}
+			if(average >= 70 && average <= 79) {
+				seventyToSeventynine.add(scoresList.get(i));
+			}
+			if(average >= 80 && average <= 89) {
+				eightyToEightynine.add(scoresList.get(i));
+			}
+			if(average >= 90 && average <= 100) {
+				ninetyToHundred.add(scoresList.get(i));
+			}
+
+
+		}
+		
+		double mean1 = mean(zeroToNine);
+		double mean2 = mean(tenToNineteen);
+		double mean3 = mean(twentyToTwentynine);
+		double mean4 = mean(thirtyToThirtynine);
+		double mean5 = mean(fortyToFortynine);
+		double mean6 = mean(fiftyToFiftynine);
+		double mean7 = mean(sixtyToSixtynine);
+		double mean8 = mean(seventyToSeventynine);
+		double mean9 = mean(eightyToEightynine);
+		double mean10 = mean(ninetyToHundred);
+		
+		
 	}
 	
 	/**
