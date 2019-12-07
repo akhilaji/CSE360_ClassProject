@@ -28,18 +28,11 @@ public class Driver {
 		frame.getDistribution1().setScene(gClass.barGraph(data)); 
 
 		
-		
 		JTable table = new JTable(new DefaultTableModel(4, rows));
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
-		model.addRow(new Object[]{"Column 1", "Column 2", "Column 3"});
+		model.addRow(new Object[]{"Column 1", "Column 2", "Column 3", "Column 4"});
 		
 		frame.getGradeTable().setModel(model);
-
-	}
-	
-	
-	static void printToFile() {
-		
 	}
 
 	

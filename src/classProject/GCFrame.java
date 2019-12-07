@@ -15,6 +15,7 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Vector;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
@@ -25,6 +26,7 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.JTable;
 import javax.swing.border.MatteBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableModel;
 
 import javafx.embed.swing.JFXPanel;
 
@@ -323,8 +325,8 @@ public class GCFrame extends JFrame {
 	
 				
 				errorArea = new JTextArea("No errors have occurred yet!");
-				errorArea.setFont(new Font("Monospaced", Font.PLAIN, 12));
 				errorArea.setLineWrap(true);
+				errorArea.setFont(new Font("Monospaced", Font.PLAIN, 12));
 				errorArea.setEditable(false);
 				
 				JButton btnWriteLogTo = new JButton("Write Log to File");
@@ -523,7 +525,14 @@ public class GCFrame extends JFrame {
 					@Override
 					public void mouseClicked(MouseEvent e) {
 						chooseFile();
+						try {
+							appendCurrentList();
+						} catch (Exception e1) {
+							gCalcs.addNewError("Exception thrown when updating list from btnLoadData" + e1.getClass());
+							updateErrors();
+						}
 					}
+					
 				});
 				btnLoadData.addMouseListener(new MouseAdapter() {
 					@Override
@@ -566,6 +575,9 @@ public class GCFrame extends JFrame {
 		
 		gCalcs.setHighBound(getHighB());
 		gCalcs.setLowBound(getLowB());
+		try {
+			gCalcs.checkBoundaries(gCalcs.getScoresList());
+		} catch (Exception e) {}
 		updateCalculations();
 		updateErrors();
 	}
@@ -573,6 +585,21 @@ public class GCFrame extends JFrame {
 	private void updateCurrentList() throws Exception {
 		gFileReader = new GradeFileReader(workingFile);
 		gCalcs.setScoresList(gFileReader.getGradeValues());
+		try {
+			gCalcs.checkBoundaries(gCalcs.getScoresList());
+		} catch (Exception e) {}
+		updateCalculations();
+	}
+	
+	private void appendCurrentList() throws Exception {
+		ArrayList<Double> newList = new ArrayList<Double>();
+		gFileReader = new GradeFileReader(workingFile);
+		try {
+			newList.addAll(gCalcs.getScoresList());
+			newList.addAll(gFileReader.getGradeValues());
+			gCalcs.setScoresList(newList);
+			gCalcs.checkBoundaries(gCalcs.getScoresList());
+		} catch (Exception e) {}
 		updateCalculations();
 	}
 	
@@ -586,9 +613,15 @@ public class GCFrame extends JFrame {
 
 
 	private void handleAppend(String number) {
-		gCalcs.getScoresList().add(Double.parseDouble(number));
-		updateCalculations();
-		updateErrors();
+		Double value = Double.parseDouble(number);
+		if (value >= lowB && value <= highB) {
+			gCalcs.getScoresList().add(Double.parseDouble(number));
+			updateCalculations();
+		}
+		else {
+			gCalcs.addNewError("The value input was outside the appropriate range.");
+			updateErrors();
+		}
 	}
 	
 	private void handleDelete(String number) {
@@ -623,5 +656,20 @@ public class GCFrame extends JFrame {
 			result += st + "\n";
 		}
 		errorArea.setText(result);
+	}
+	
+	private void handleTable() {
+		JTable table;
+		Vector<Vector<Object>> data = new Vector<Vector<Object>>();
+		Vector model = new Vector();
+		Vector row = new Vector();
+		int rows = gCalcs.getScoresList().size() % 4;
+		
+		for(int i = 0; i < rows; i++) {
+			row.add(gCalcs.getScoresList().get(i));
+			if(i == rows - 1)
+				model.add(row);
+		}
+
 	}
 }
