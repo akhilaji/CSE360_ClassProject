@@ -212,6 +212,26 @@ public class GradeCalculations {
 		
 	}
 	
+	void delete(String value, ArrayList<Double> scoresList) {
+		int counter = 0;
+		boolean elementFoundFlag = false;
+		
+		while (0 < scoresList.size() && elementFoundFlag == false)
+		{
+		   if(scoresList.get(counter).equals(value))
+		   {
+		     // Remove item
+			  scoresList.remove(counter);
+			  elementFoundFlag = true;
+		  }
+		  else
+		  {
+		    ++counter;
+		  }
+		}
+		
+	}
+	
 	void checkBoundaries(ArrayList<Double> scoresList) throws Exception {
 		int length = scoresList.size();
 		
