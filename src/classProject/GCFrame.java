@@ -592,7 +592,7 @@ public class GCFrame extends JFrame {
 	}
 	
 	private void handleDelete(String number) {
-		gCalcs.delete(number, gCalcs.getScoresList());
+		gCalcs.delete(Double.parseDouble(number), gCalcs.getScoresList());
 		updateCalculations();
 		updateErrors();
 	}
