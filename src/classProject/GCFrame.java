@@ -147,12 +147,11 @@ public class GCFrame extends JFrame {
 				JLabel lblLowBoundary = new JLabel("Low Boundary");
 								
 								JLabel lblHighBoundary = new JLabel("High Boundary");
-								textField = new JTextField();
-								
+												textField = new JTextField("0");
 												textField.setColumns(10);
 												
 												
-												textField_1 = new JTextField();
+												textField_1 = new JTextField("100");
 												textField_1.addKeyListener(new KeyAdapter() {
 													@Override
 													public void keyReleased(KeyEvent e) {

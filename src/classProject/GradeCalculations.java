@@ -9,8 +9,6 @@ public class GradeCalculations {
 	private int highBound;
 	private int lowBound;
 	
-	
-
 	private double highValue;
 	private double lowValue;
 	private double mean;
@@ -83,6 +81,8 @@ public class GradeCalculations {
 		mean = 0;
 		median = 0;
 		mode = 0;
+		highBound = 100;
+		lowBound = 0;
 	}
 	
 	//this was everything in the main from this file
