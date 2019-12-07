@@ -61,7 +61,7 @@ public class GradeFileReader {
 		String value = "";
 		BufferedWriter gradeWriter = new BufferedWriter( new FileWriter( "gradeValues.txt") );
 		for ( int i = 0; i < gradeValues.size(); i++ ) {
-			//value = Float.toString( gradeValues.get(i) );
+			value = Double.toString( gradeValues.get(i) );
 			gradeWriter.write(value);
 			gradeWriter.newLine();
 		}
