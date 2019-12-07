@@ -115,6 +115,7 @@ public class GradeCalculations {
 	}
 	
 	void updateAll() {
+		System.out.println("updateall");
 		highValue = getHigh(scoresList);
 		lowValue = getLow(scoresList);
 		median = median(scoresList);
