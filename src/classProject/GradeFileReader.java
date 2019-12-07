@@ -58,10 +58,10 @@ public class GradeFileReader {
 	 * Prints all values in the class' ArrayList to a file.
 	 */
 	public void writeGradesToFile() throws IOException {
-		String value;
+		String value = "";
 		BufferedWriter gradeWriter = new BufferedWriter( new FileWriter( "gradeValues.txt") );
 		for ( int i = 0; i < gradeValues.size(); i++ ) {
-			value = Float.toString( gradeValues.get(i) );
+			//value = Float.toString( gradeValues.get(i) );
 			gradeWriter.write(value);
 			gradeWriter.newLine();
 		}
